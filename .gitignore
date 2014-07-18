@@ -1,0 +1,8 @@
+.DS_Store
+.eunit
+ebin
+deps
+log
+doc
+*.beam
+*.dump
