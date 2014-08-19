@@ -4,7 +4,7 @@
 %% @author Eric Avdey <eiri@eiri.ca>
 %% @copyright 2014 Eric Avdey
 
--module(rand_pl).
+-module(random_proplist).
 
 -export ([make/0, make/1, make/2]).
 
@@ -21,8 +21,8 @@ make(Rows) ->
   make(5, Rows).
 
 %% @doc Generates a list with Rows number of roplists, Cols tuples in each.
--spec make(Cols::integer(), Rows::integer()) -> [proplist()].
-make(Cols, Rows) ->
+-spec make(Rows::integer(), Cols::integer()) -> [proplist()].
+make(Rows, Cols) ->
   HeadPattern = [word || _ <- lists:seq(1,Cols)],
   LinePattern = [rand_type() || _ <- lists:seq(1,Cols)],
   Headers = rand_line(HeadPattern),

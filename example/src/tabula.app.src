@@ -1,0 +1,7 @@
+{application, tabula, [
+  {description, "Exampel application to demonstrate usage of list_as_table"},
+  {vsn, "0.0.1"},
+  {modules, [tabula]},
+  {registered, [tabula]},
+  {applications, [kernel, stdlib]}
+]}.

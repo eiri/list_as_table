@@ -1,7 +1,7 @@
 {application, list_as_table, [
   {description, "Print list of terms as a table"},
-  {vsn, "0.1.0"},
-  {modules, [list_as_table, rand_pl]},
+  {vsn, "0.1.1"},
+  {modules, [list_as_table, random_proplist]},
   {registered, [list_as_table]},
   {applications, [kernel, stdlib]}
 ]}.
