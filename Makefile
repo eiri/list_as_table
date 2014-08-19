@@ -3,8 +3,11 @@ PROJECT = list_as_table
 ERL := $(shell which erl)
 HOSTNAME := $(shell hostname)
 
-.PHONY: run
+.PHONY: example run
 include erlang.mk
 
-run: app
-	exec ${ERL} -pa ${PWD}/ebin -name ${PROJECT}@${HOSTNAME}
+example: app
+	make -C $(PWD)/example
+
+run: app example
+	exec ${ERL} -pa $(PWD)/ebin $(PWD)/example/ebin  -name tabula@$(HOSTNAME)

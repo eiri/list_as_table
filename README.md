@@ -4,7 +4,7 @@
 
 ## Synopsis
 
-This is a simple module to present lists of proplists in form of ascii table. Nothing but a simple dev helper tool.
+This is a simple module to present lists of proplists in form of ascii table.
 
 ## How to install
 
@@ -16,7 +16,7 @@ Include into dep section of `rebar.config`
 ]
 ```
 
-Or, if you prefer `erlang.mk`, add into your Makefile
+If you prefer `erlang.mk`, add into your Makefile
 
 ```
 DEPS = list_as_table
@@ -86,6 +86,8 @@ ok
 
 Much more readable now, isn't it?
 
+Simple example application included in _example_ directory. Run `make run` to compile and start it, then call `tabula:demo()` in erlang shell.
+
 ## Version history
 
    - 0.1.0 First, naive implementation.
@@ -93,4 +95,3 @@ Much more readable now, isn't it?
 ## License
 
 MIT. See [License](https://github.com/eiri/grass/blob/master/License "MIT License")
-
