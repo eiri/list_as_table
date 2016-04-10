@@ -8,29 +8,21 @@ This is a simple module to present lists of proplists in form of ascii table.
 
 ## How to install
 
-Include into dep section of `rebar.config`
+Add in deps section of `rebar.config`
 
 ```
 {deps, [
-  {list_as_table, "0.1.0", {git, "https://github.com/eiri/list_as_table.git", {tag, "0.1.0"}}}
+  {list_as_table, {git, "https://github.com/eiri/list_as_table.git", {tag, "0.2.0"}}}
 ]
-```
-
-If you prefer `erlang.mk`, add into your Makefile
-
-```
-DEPS = list_as_table
-dep_list_as_table = https://github.com/eiri/list_as_table 0.1.0
-
 ```
 
 ## How to use
 
-`last_as_table` is not Erlang application, i.e. it does not require to be started or stopped. Just make sure it is in `--pa` path and then pass a list of proplists to it: `list_as_table:print(List)`
+`last_as_table` is just a library, so just make sure it is in `--pa` path and then pass a list of proplists to it as `list_as_table:print(List)`
 
 ### Example
 
-Lets output EVM's process list as a table, simlar to erl's `i().`
+Lets output VM's process list as a table, simlar to erl's `i().`
 
 ```
 Eshell V6.0  (abort with ^G)
@@ -90,6 +82,7 @@ Simple example application included in _example_ directory. Run `make run` to co
 
 ## Version history
 
+   - 0.2.0 Build switched to rebar3.
    - 0.1.0 First, naive implementation.
 
 ## License

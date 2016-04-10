@@ -1,3 +1,5 @@
-PROJECT = tabula
+.PHONY: compile
 
-include $(PWD)/erlang.mk
+compile:
+	@rebar3 compile
+

@@ -1,13 +1,26 @@
-PROJECT = list_as_table
+.PHONY: all compile eunit test clean example run
 
 ERL := $(shell which erl)
 HOSTNAME := $(shell hostname)
+BUILD_DIR = _build/default/lib
 
-.PHONY: example run
-include erlang.mk
+all: compile eunit
 
-example: app
-	make -C $(PWD)/example
+compile:
+	@rebar3 compile
 
-run: app example
-	exec ${ERL} -pa $(PWD)/ebin $(PWD)/example/ebin  -name tabula@$(HOSTNAME)
+eunit:
+	@rebar3 eunit
+
+test:
+	@rebar3 eunit -v
+
+clean:
+	@rebar3 clean --all
+
+example: compile
+	@make -C $(PWD)/example
+
+run: example
+	@exec ${ERL} -pa $(PWD)/$(BUILD_DIR)/*/ebin \
+		$(PWD)/example/$(BUILD_DIR)/*/ebin -name tabula@$(HOSTNAME)
