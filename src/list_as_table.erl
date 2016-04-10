@@ -8,7 +8,7 @@
 
 -author('Eric Avdey <eiri@eiri.ca>').
 
--export([print/1]).
+-export([print/1, values/1]).
 
 -type proplist() :: [tuple()].
 
@@ -16,12 +16,16 @@
 -spec print([proplist()]) -> ok.
 print(List) ->
   {ok, Headers, Sizes} = measure_all(List),
-  V = fun(L) -> [V || {_, V} <- L] end,
   print_line(Sizes),
   print_row(Headers, Sizes),
   print_line(Sizes),
-  [print_row(V(L), Sizes) || L <- List],
+  lists:foreach(fun(E) ->
+    print_row(values(E), Sizes)
+  end, List),
   print_line(Sizes).
+
+values(List) ->
+  lists:map(fun({_, V}) -> V end, List).
 
 %% private
 
