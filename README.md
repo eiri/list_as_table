@@ -94,4 +94,4 @@ Simple example application included in _example_ directory. Run `make run` to co
 
 ## License
 
-MIT. See [License](https://github.com/eiri/grass/blob/master/License "MIT License")
+MIT. See [License](https://github.com/eiri/list_as_table/blob/master/License "MIT License")
