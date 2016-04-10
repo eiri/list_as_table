@@ -2,6 +2,6 @@
   {description, "Print list of terms as a table"},
   {vsn, "0.2.0"},
   {modules, [list_as_table]},
-  {registered, [list_as_table]},
+  {registered, []},
   {applications, [kernel, stdlib]}
 ]}.
