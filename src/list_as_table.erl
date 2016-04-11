@@ -42,7 +42,8 @@ print_cell(V,S) ->
   FmtV = if
     is_list(V) -> io_lib:format("~s", [V]);
     is_integer(V) -> io_lib:format("~b", [V]);
-    true -> io_lib:format("~p", [V])
+    is_float(V) -> io_lib:format("~f", [V]);
+    true -> io_lib:format("~P", [V])
   end,
   io_lib:format(FmtS, [list_to_binary(FmtV)]).
 
