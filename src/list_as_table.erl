@@ -38,7 +38,7 @@ print_row([V|T], [S|ST], L) ->
   print_row(T, ST, L ++ print_cell(V,S)).
 
 print_cell(V,S) ->
-  FmtS = lists:flatten(io_lib:format("| ~~-~bs ", [S])),
+  FmtS = list_to_binary([$|, " ", $~, $-, integer_to_list(S), $s, " "]),
   FmtV = if
     is_list(V) -> io_lib:format("~s", [V]);
     is_integer(V) -> io_lib:format("~b", [V]);
@@ -52,7 +52,7 @@ print_line(S) ->
 print_line([], L) ->
   io:format("~s-+~n", [L]);
 print_line([S|ST], L) ->
-  FmtS = lists:flatten(io_lib:format("+~~~bc", [S+2])),
+  FmtS = list_to_binary([$+, $~, integer_to_list(S + 2), $c]),
   print_line(ST, L ++ io_lib:format(FmtS, [$-])).
 
 measure_all([H|_] = List) ->
