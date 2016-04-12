@@ -16,28 +16,27 @@
 -spec print([proplist()]) -> ok.
 print(List) ->
   {ok, Headers, Sizes} = measure_all(List),
-  print_line(Sizes),
-  print_row(Headers, Sizes),
-  print_line(Sizes),
-  lists:foreach(fun(E) ->
-    print_row(values(E), Sizes)
-  end, List),
-  print_line(Sizes).
+  Line = format_line(Sizes),
+  Header = format_row(Headers, Sizes),
+  Rows = [format_row(values(E), Sizes) || E <- List],
+  lists:foreach(fun(Row) ->
+    io:fwrite(Row)
+  end, lists:append([[Line, Header, Line], Rows, [Line]])).
 
 values(List) ->
   lists:map(fun({_, V}) -> V end, List).
 
 %% private
 
-print_row(R, S) ->
-  print_row(R, S, "").
+format_row(R, S) ->
+  format_row(R, S, "").
 
-print_row([V], [S], L) ->
-  io:format("~s |~n", [L ++ print_cell(V,S)]);
-print_row([V|T], [S|ST], L) ->
-  print_row(T, ST, L ++ print_cell(V,S)).
+format_row([V], [S], L) ->
+  io_lib:format("~s |~n", [L ++ format_cell(V,S)]);
+format_row([V|T], [S|ST], L) ->
+  format_row(T, ST, L ++ format_cell(V,S)).
 
-print_cell(V,S) ->
+format_cell(V,S) ->
   FmtS = list_to_binary([$|, " ", $~, $-, integer_to_list(S), $s, " "]),
   FmtV = if
     is_list(V) -> io_lib:format("~s", [V]);
@@ -47,14 +46,14 @@ print_cell(V,S) ->
   end,
   io_lib:format(FmtS, [list_to_binary(FmtV)]).
 
-print_line(S) ->
-  print_line(S, "").
+format_line(S) ->
+  format_line(S, "").
 
-print_line([], L) ->
-  io:format("~s-+~n", [L]);
-print_line([S|ST], L) ->
+format_line([], L) ->
+  io_lib:format("~s-+~n", [L]);
+format_line([S|ST], L) ->
   FmtS = list_to_binary([$+, $~, integer_to_list(S + 2), $c]),
-  print_line(ST, L ++ io_lib:format(FmtS, [$-])).
+  format_line(ST, L ++ io_lib:format(FmtS, [$-])).
 
 measure_all([H|_] = List) ->
   Mold = [0 || _ <- lists:seq(1, length(H))],
