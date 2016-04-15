@@ -63,6 +63,8 @@ format_line([S|ST], L) ->
   FmtS = list_to_binary([$+, $~, integer_to_list(S + 2), $c]),
   format_line(ST, L ++ io_lib:format(FmtS, [$-])).
 
+measure_all([]) ->
+  {ok, ["empty list"], [10]};
 measure_all([H|_] = List) ->
   Mold = [0 || _ <- lists:seq(1, length(H))],
   Headers = [K || {K,_} <- H],

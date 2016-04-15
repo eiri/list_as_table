@@ -3,8 +3,12 @@
 -behaviour (application).
 -behaviour (supervisor).
 
--export ([demo/0]).
+-export ([demo/0, empty/0]).
 -export([start/0, stop/0, start/2, stop/1, init/1]).
+
+empty() ->
+  io:format("Empty list~n"),
+  list_as_table:print([]).
 
 demo() ->
   Random = random_proplist:make(7, 5),
