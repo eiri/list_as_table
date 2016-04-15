@@ -8,19 +8,27 @@
 
 -author('Eric Avdey <eiri@eiri.ca>').
 
--export([print/1, values/1]).
+-export([print/1, print/2, values/1]).
 
+-type device() :: atom() | pid().
 -type proplist() :: [tuple()].
 
 %% @doc Prints list of proplists as a table
 -spec print([proplist()]) -> ok.
 print(List) ->
+  print(standard_io, List).
+
+%% @doc Prints list of proplists as a table on a provided IO device.
+%% Device can be standard_io, standard_error, a registered name,
+%% or a pid handling IO protocols as returned by file:open/2.
+-spec print(device(), [proplist()]) -> ok.
+print(Device, List) ->
   {ok, Headers, Sizes} = measure_all(List),
   Line = format_line(Sizes),
   Header = format_row(Headers, Sizes),
   Rows = [format_row(values(E), Sizes) || E <- List],
   lists:foreach(fun(Row) ->
-    io:fwrite(Row)
+    io:fwrite(Device, Row, [])
   end, lists:append([[Line, Header, Line], Rows, [Line]])).
 
 values(List) ->
