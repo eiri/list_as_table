@@ -1,6 +1,6 @@
 {application, list_as_table, [
   {description, "Print list of terms as a table"},
-  {vsn, "0.2.2"},
+  {vsn, "0.2.3"},
   {modules, [list_as_table]},
   {registered, []},
   {applications, [kernel, stdlib]}

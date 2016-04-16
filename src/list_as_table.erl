@@ -22,7 +22,8 @@ print(List) ->
 %% Device can be standard_io, standard_error, a registered name,
 %% or a pid handling IO protocols as returned by file:open/2.
 -spec print(device(), [proplist()]) -> ok.
-print(Device, List) ->
+print(Device, List0) ->
+  List = normalize(List0),
   {ok, Headers, Sizes} = measure_all(List),
   Line = format_line(Sizes),
   Header = format_row(Headers, Sizes),
@@ -62,6 +63,11 @@ format_line([], L) ->
 format_line([S|ST], L) ->
   FmtS = list_to_binary([$+, $~, integer_to_list(S + 2), $c]),
   format_line(ST, L ++ io_lib:format(FmtS, [$-])).
+
+normalize([{_, _} | _] = List) ->
+  [[{key, K}, {value, V}] || {K, V} <- List];
+normalize(List) ->
+  List.
 
 measure_all([]) ->
   {ok, ["empty list"], [10]};
