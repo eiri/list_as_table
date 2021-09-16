@@ -48,7 +48,7 @@ format_row([V|T], [S|ST], L) ->
 format_cell(V,S) ->
   FmtS = list_to_binary([$|, " ", $~, $-, integer_to_list(S), $s, " "]),
   FmtV = if
-    is_list(V) -> io_lib:format("~s", [V]);
+    is_list(V) -> io_lib:format("~w", [V]);
     is_integer(V) -> io_lib:format("~b", [V]);
     is_float(V) -> io_lib:format("~f", [V]);
     true -> io_lib:format("~P", [V, 5])
@@ -95,8 +95,6 @@ measure_row([{K,V}|RowT], [Size|AccT], NewAcc) ->
       measure_row(RowT, AccT, [Size|NewAcc])
   end.
 
-fsize(V) when is_list(V) ->
-  length(V);
 fsize(V) when is_binary(V) ->
   erlang:size(V);
 fsize(V) ->
