@@ -22,7 +22,7 @@ Add in deps section of `rebar.config`
 
 ### Example
 
-Lets output VM's process list as a table, simlar to erl's `i().`
+Lets output VM's process list as a table, similar to erl's `i().`
 
 ```
 Eshell V6.0  (abort with ^G)
